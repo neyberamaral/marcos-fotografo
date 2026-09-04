@@ -46,7 +46,7 @@ fotos.forEach(foto => {
 
 const imagens = Array.from(document.querySelectorAll('.gallery div img'));
 
-const INTERVALO_TROCA = 4500; // 4,5 segundos
+const INTERVALO_TROCA = 3000; // 3,0 segundos
 let ultimaFotoA = -1;
 let ultimaFotoB = -1;
 
