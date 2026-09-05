@@ -1113,3 +1113,200 @@ footer p:first-of-type {
         animation: none;
     }
 }
+
+/* MODAL DE GALERIA */
+.modal-galeria {
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 90px;
+    background: rgba(0, 0, 0, .93);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .35s ease, visibility .35s ease;
+}
+
+.modal-galeria.ativo {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-imagem-area {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+.modal-imagem {
+    max-width: min(82vw, 1250px);
+    max-height: 82vh;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    box-shadow: 0 20px 70px rgba(0, 0, 0, .55);
+    user-select: none;
+    -webkit-user-drag: none;
+    transform: scale(.96);
+    opacity: 0;
+    transition: transform .35s cubic-bezier(.22, 1, .36, 1), opacity .25s ease;
+}
+
+.modal-galeria.ativo .modal-imagem {
+    transform: scale(1);
+    opacity: 1;
+}
+
+.modal-imagem.troca-modal {
+    animation: trocarImagemModal .38s cubic-bezier(.22, 1, .36, 1);
+}
+
+@keyframes trocarImagemModal {
+    0% { opacity: .25; transform: scale(.97); }
+    100% { opacity: 1; transform: scale(1); }
+}
+
+.modal-fechar {
+    position: absolute;
+    top: 25px;
+    right: 30px;
+    width: 48px;
+    height: 48px;
+    border: 1px solid rgba(255,255,255,.25);
+    border-radius: 50%;
+    background: rgba(0,0,0,.35);
+    color: #fff;
+    font-family: Arial, sans-serif;
+    font-size: 32px;
+    font-weight: 200;
+    line-height: 1;
+    cursor: pointer;
+    z-index: 3;
+    transition: .3s ease;
+}
+
+.modal-fechar:hover {
+    background: rgba(200,155,93,.9);
+    border-color: #c89b5d;
+    color: #050505;
+    transform: rotate(90deg);
+}
+
+.modal-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 58px;
+    height: 58px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(255,255,255,.25);
+    border-radius: 50%;
+    background: rgba(0,0,0,.35);
+    color: #fff;
+    font-size: 25px;
+    font-weight: 300;
+    cursor: pointer;
+    z-index: 3;
+    transition: .3s ease;
+}
+
+.modal-anterior { left: 25px; }
+.modal-proxima { right: 25px; }
+
+.modal-nav:hover {
+    background: rgba(200,155,93,.9);
+    border-color: #c89b5d;
+    color: #050505;
+}
+
+.modal-anterior:hover { transform: translateY(-50%) translateX(-4px); }
+.modal-proxima:hover { transform: translateY(-50%) translateX(4px); }
+
+.modal-contador {
+    position: absolute;
+    bottom: 18px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 6px 12px;
+    color: rgba(255,255,255,.65);
+    font-family: "Montserrat", sans-serif;
+    font-size: .58rem;
+    font-weight: 500;
+    letter-spacing: .18em;
+    background: rgba(0,0,0,.35);
+}
+
+body.modal-aberto {
+    overflow: hidden;
+}
+
+
+/* TROCA ALEATÓRIA */
+.gallery div img.foto-trocando {
+    animation: fotoTroca .7s cubic-bezier(.22, 1, .36, 1);
+}
+
+@keyframes fotoTroca {
+    0% { opacity: 1; transform: scale(1); filter: brightness(1); }
+    45% { opacity: 0; transform: scale(1.035); filter: brightness(.8); }
+    55% { opacity: 0; transform: scale(.97); filter: brightness(1.08); }
+    100% { opacity: 1; transform: scale(1); filter: brightness(1); }
+}
+
+
+/* RESPONSIVO */
+@media (max-width: 900px) {
+    .modal-galeria { padding: 35px 70px; }
+    .modal-nav { width: 50px; height: 50px; }
+    .modal-anterior { left: 15px; }
+    .modal-proxima { right: 15px; }
+}
+
+@media (max-width: 768px) {
+    .modal-galeria { padding: 70px 55px 45px; }
+    .modal-imagem { max-width: 90vw; max-height: 76vh; }
+    .modal-fechar {
+        top: 15px;
+        right: 15px;
+        width: 42px;
+        height: 42px;
+        font-size: 27px;
+    }
+    .modal-nav {
+        width: 44px;
+        height: 44px;
+        font-size: 20px;
+    }
+    .modal-anterior { left: 7px; }
+    .modal-proxima { right: 7px; }
+    .modal-contador { bottom: 5px; }
+}
+
+@media (max-width: 430px) {
+    .modal-galeria { padding-left: 48px; padding-right: 48px; }
+    .modal-nav { width: 38px; height: 38px; font-size: 17px; }
+    .modal-anterior { left: 5px; }
+    .modal-proxima { right: 5px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .modal-galeria,
+    .modal-imagem,
+    .modal-nav,
+    .modal-fechar {
+        transition: none !important;
+    }
+
+    .modal-imagem.troca-modal,
+    .gallery div img.foto-trocando {
+        animation: none !important;
+    }
+}
+
